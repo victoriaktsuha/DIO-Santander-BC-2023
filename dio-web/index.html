@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PORTAL DE NOTICIAS GALACTICA</title>
+    <link rel="stylesheet" href="styles/card.css" />
+    <!-- componentes -->
+    <script src="src/components/TituloDinamico.js" defer></script>
+    <script src="src/components/CardNews.js" defer></script>
+    <!-- "defer" indica ao browser para executar esse script apenas quando o DOM já tiver sido completamente carregado (parsed), nesse caso, incluindo a shadow DOM a DOM após seu carregamento -->
+  </head>
+  <body>
+    <!-- <div class="container">
+      <div class="card">
+        <div class="card__left">
+          <span>by Name Lastname</span>
+          <a href="#">Darth Vader Contrata Devs</a>
+          <p>
+            Darth Vader procura desenvolvedores que sabem trabalhar sob pressão
+          </p>
+        </div>
+        <div class="card__right">
+          <img src="assets/boss-vader.jpg" alt="Darth Vader" />
+        </div>
+      </div>
+    </div> -->
+    <card-news
+      autor="Vickats"
+      title="Darth Vader Contrata"
+      link-url="https://www.linkedin.com"
+      photo="assets/boss-vader.jpg"
+      content="Darth Vader procura desenvolvedores que sabem trabalhar sob pressão"
+    ></card-news>
+    <card-news></card-news>
+    <titulo-dinamico titulo="Componente Titulo Dinamico"></titulo-dinamico>
+    <titulo-dinamico titulo="Outro Titulo Dinamico"></titulo-dinamico>
+    <!-- tags criadas via JS e renderizada na shadow DOM como componente -->
+  </body>
+</html>
+<!-- Shadow DOM: sub arvore dentro da arvore principal (DOM); Also Virtual DOM-->
