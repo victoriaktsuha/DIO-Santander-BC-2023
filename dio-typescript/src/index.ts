@@ -68,3 +68,77 @@ let boleto: [string, number, number] = ["água", 120, 123587469];
 //// Datas
 let aniversario: Date = new Date("2022-12-01 05:00");
 console.log(aniversario.toString());
+
+//// Funções - tipar os argumentos e a propria função
+function addNumber(x: number, y: number): number {
+  return x + y;
+}
+//// a variavel deve ter o mesmo tipo da função
+let soma: number = addNumber(4, 7);
+console.log(soma);
+
+function addToHello(name: string) {
+  return `Hello ${name}`;
+}
+console.log(addToHello("Name"));
+
+//// Funções Multitypes - tipar os argumentos e a propria função; Nesse caso, ao tipar a função, pode ser ':any' (não muito recomendado) ou os tipos que a função irá retornar
+function CallToPhone(phone: number | string): number | string {
+  return phone;
+}
+console.log(CallToPhone("1158962154511"));
+console.log(CallToPhone(1158962154511));
+
+//// Funções Assíncronas - devem ser tipadas como Promise
+async function getDB(id: number): Promise<string> {
+  return "Name";
+}
+
+//// Funções Assíncronas Multittpe - devem ser tipadas como Promise, incluindo os tipos a serem retornados
+async function getNewDB(id: number): Promise<string | number> {
+  return "Name";
+}
+
+//// Interfaces (type x interface)
+//// utilizado mais para tipar objetos
+type robot = {
+  id: number | string;
+  readonly name: string; //// não-atribuivel (nem no console.log)
+};
+
+const bot: robot = {
+  id: 1,
+  name: "megamen",
+};
+
+//// utilizado mais para trabalhar com classes
+interface robot2 {
+  id: number | string;
+  readonly name: string;
+  sayHello(): string;
+}
+
+const bot2: robot2 = {
+  id: 1,
+  name: "megamen",
+  sayHello: function (): string {
+    throw new Error("Function not implemented.");
+  },
+};
+console.log(bot, bot2);
+
+class Pessoa implements robot2 {
+  id: string | number;
+  name: string;
+
+  constructor(id: string | number, name: string) {
+    this.id = id;
+    this.name = name;
+  }
+  sayHello(): string {
+    return `Hello ${this.name}`;
+  }
+}
+const p = new Pessoa(1, "batman");
+console.log(p);
+console.log(p.sayHello());
