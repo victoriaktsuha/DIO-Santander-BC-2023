@@ -169,11 +169,11 @@ const p1 = new Character("Name", 98, "No defined");
 console.log(p1);
 p1.attack(); //// como no método 'attack()' não temos nenhum retorno e já está executando o console.log dentro do método, não precisamos utilizar o console.log aqui novamente
 
-//// subclasse
-
+//// subclass
+// Character: superclass - Magician: subclass
 class Magician extends Character {
   magicPoints: number;
-  //// o constructor dessa class tem acesso as propriedades da classe 'Character', mas é preciso adicioná-los novamente como argumento por conta do 'super', que é exigido em subclasses para invocar o 'constructor' da class 'pai'; Os argumentos devem ser então passados novamente ao 'super', mas sem a tipagem
+  //// o constructor dessa subclass tem acesso as propriedades da superclass 'Character', mas é preciso adicioná-los novamente como argumento por conta do 'super', que é exigido em subclasses para invocar o 'constructor' da class 'pai' (superclass); Os argumentos devem ser então passados novamente ao 'super', mas sem a tipagem
   constructor(
     name: string,
     strength: number,
@@ -184,3 +184,55 @@ class Magician extends Character {
     this.magicPoints = magicPoints;
   }
 }
+const p2 = new Magician("Mago", 9, "undefined", 100);
+
+//// generics - ao utilizar <T> para tipar a function, os argumentos e o retorno ao invés de :any[] para tipar apenas os argumentos e o retorno, a tipagem se torna 'dinâmica', podem ser definida a cada utilização da função como 'const numArray = concatArray<number[]>' ou 'const stgArray = concatArray<string[]>'
+
+function concatArray<T>(...itens: T[]): T[] {
+  return new Array().concat(...itens);
+}
+const numArray = concatArray<number[]>([1, 5], [3]);
+console.log(numArray); //// [1, 5, 3]
+
+const stgArray = concatArray<string[]>(["Name", "Lastname"], ["Other name"]);
+console.log(stgArray); //// [ 'Name', 'Lastname', 'Other name' ]
+
+/* npm i ts-node-dev -D -> ts-node-dev é um servidor local que entende TS / '-D' é para instalar apenas no ambiente de desenvolvimento. evitando executar npm run start todo o tempo para gerar uma build com o typescript transpilado para js */
+
+//// decorators - 'decora' uma função para, quando encontrar a condição ideal, ser executada. Por ser uma feature experimental, deve ser habilitada no tsconfig.json
+function ExibirNome(target: any) {
+  console.log(target);
+}
+//// 'decora' função 'ExibirNome' que será executada assim que o codigo for executado e exibirá o que vir logo abaixo, que deve ser uma class; Para atrelar o decorator a alguma coisa, adicione-o acima dessa coisa
+@ExibirNome
+class Funcionario {}
+//// é exibido no console [class Funcionario]
+
+function apiVersion(version: string) {
+  return (target: any) => {
+    Object.assign(target.prototype, { __version: version, __name: "name" });
+  };
+}
+@apiVersion("1.10")
+
+//// attribute decorator - posicionado em cima de uma propriedade
+function minLength(length: number){
+  return (target: any, key: string) => {
+    let _value = target[key]; //// target = propriedade
+    // console.log(key); //// key = valor
+  }
+}
+class Api {
+  @minLength(3)
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const api = new Api("produtos");
+// console.log(api.name); //// produtos
+
+
+

@@ -91,14 +91,29 @@ const p = new Pessoa(1, "batman");
 console.log(p);
 console.log(p.sayHello());
 class Character {
-    constructor(strength, skill) {
+    constructor(name, strength, gender) {
+        this.name = name;
         this.strength = strength;
-        this.skill = skill;
+        this.gender = gender;
     }
     attack() {
         console.log(`Attack with ${this.strength} points`);
     }
 }
-const p1 = new Character(10, 98);
+const p1 = new Character("Name", 98, "No defined");
 console.log(p1);
 p1.attack();
+class Magician extends Character {
+    constructor(name, strength, gender, magicPoints) {
+        super(name, strength, gender);
+        this.magicPoints = magicPoints;
+    }
+}
+const p2 = new Magician("Mago", 9, "undefined", 100);
+function concatArray(...itens) {
+    return new Array().concat(...itens);
+}
+const numArray = concatArray([1, 5], [3]);
+console.log(numArray);
+const stgArray = concatArray(["Name", "Lastname"], ["Other name"]);
+console.log(stgArray);
