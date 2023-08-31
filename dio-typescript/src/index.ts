@@ -142,3 +142,45 @@ class Pessoa implements robot2 {
 const p = new Pessoa(1, "batman");
 console.log(p);
 console.log(p.sayHello());
+
+//// classes
+
+//// Data Modifiers - modificadores de acesso: public, private or protected
+
+class Character {
+  private name: string; //// 'private' indica que essa propriedade só é acessível dentro da class,não sendo possível acessá-la como extensão; i.e. 'p1.name'
+  public strength: number; //// 'public' indica que essa propriedade é acessível fora da class, sendo possível acessá-la como extensão; i.e. 'p1.strength'. Esse é o valor default.
+  readonly skill?: number; //// '?' indica que esse propriedade é opcional, não sendo necessária passa-la ao constructor e não sendo obritoria sua utilização
+  protected gender: string; //// indica que essa propriedade só é acessível dentro da class e das subclasses que herdem essa class, não sendo possível acessá-la como extensão; i.e. 'p1.gender'
+
+  constructor(name: string, strength: number, gender: string) {
+    //// essa estrutura pode ser traduzida como: "o 'strength'(aquele adicionado lá em cima) dessa classe(this) receberá o 'strength' atribuido nesse constructor"
+    this.name = name;
+    this.strength = strength;
+    this.gender = gender;
+  }
+  //// o método attack é 'void' pq não retorna nada pra outra função (return)
+  //// os modifiers também podem ser aplicados em métodos
+  public attack(): void {
+    console.log(`Attack with ${this.strength} points`);
+  }
+}
+const p1 = new Character("Name", 98, "No defined");
+console.log(p1);
+p1.attack(); //// como no método 'attack()' não temos nenhum retorno e já está executando o console.log dentro do método, não precisamos utilizar o console.log aqui novamente
+
+//// subclasse
+
+class Magician extends Character {
+  magicPoints: number;
+  //// o constructor dessa class tem acesso as propriedades da classe 'Character', mas é preciso adicioná-los novamente como argumento por conta do 'super', que é exigido em subclasses para invocar o 'constructor' da class 'pai'; Os argumentos devem ser então passados novamente ao 'super', mas sem a tipagem
+  constructor(
+    name: string,
+    strength: number,
+    gender: string,
+    magicPoints: number
+  ) {
+    super(name, strength, gender);
+    this.magicPoints = magicPoints;
+  }
+}
