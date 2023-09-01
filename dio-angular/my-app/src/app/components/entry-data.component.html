@@ -1,0 +1,10 @@
+<!-- associar a propriedade 'placeholder' do TS a propriedade 'value' do HTML, conectando os dois (todos desse mesmo componente, porém o TS se comportará como 'pai' e o 'HTML' como filho) Nesse caso, o value irá recuperar o que o usuário digitar e será passado a propriedade placeholder que está atrelada ao event.target.value; 
+[value]="placeholder" => property binding - associa o TS ao HTML 
+(input)="placeholder = $any($event.target).value" => event binding - associa o HTMl ao TS através de um evento que dispara uma ação para o TS
+-->
+<input
+  type="text"
+  [value]="placeholder"
+  (input)="placeholder = $any($event.target).value"
+/>
+<p>{{ placeholder }}</p>

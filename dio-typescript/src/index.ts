@@ -213,14 +213,27 @@ function apiVersion(version: string) {
     Object.assign(target.prototype, { __version: version, __name: "name" });
   };
 }
-@apiVersion("1.10")
+// @apiVersion("1.10")
 
 //// attribute decorator - posicionado em cima de uma propriedade
-function minLength(length: number){
+function minLength(length: number) {
   return (target: any, key: string) => {
     let _value = target[key]; //// target = propriedade
     // console.log(key); //// key = valor
-  }
+
+    const getter = () => +_value;
+    const setter = (value: string) => {
+      if (value.length < length) {
+        throw new Error(`Tamanho menor do que ${length}`);
+      } else {
+        _value = value;
+      }
+    };
+    Object.defineProperty(target, key, {
+      get: getter,
+      set: setter,
+    });
+  };
 }
 class Api {
   @minLength(3)
@@ -232,7 +245,4 @@ class Api {
 }
 
 const api = new Api("produtos");
-// console.log(api.name); //// produtos
-
-
-
+console.log(api.name); //// produtos

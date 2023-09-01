@@ -1,0 +1,18 @@
+<hello name="{{ name }}"></hello>
+<menu></menu>
+<!-- Data Binding -->
+
+<!-- Interpolação -->
+<my-button label="{{ buttonLabel }}"></my-button><br /><br />
+<my-button label="prop= + string com aspas duplas"></my-button><br /><br />
+
+<!-- Property Binding - Associa propriedade ao um valor ou outra propriedade -->
+<my-button [label]="buttonFav"></my-button><br /><br />
+<my-button [label]="'[prop]= + String com aspas simples'"></my-button>
+<br /><br />
+
+<my-button label="Eventos do my-button"></my-button>
+<br /><br /><br />
+
+<!-- Two Way Data Binding -->
+<app-entry-data></app-entry-data>
