@@ -189,12 +189,12 @@ child.html<br>
 
   **html**
 
-            <input
-            type="text"
-            [value]="placeholder"
-            (input)="placeholder = $any($event.target).value"
-            />
-            <p>{{ placeholder }}</p>
+              <input
+              type="text"
+              [value]="placeholder"
+              (input)="placeholder = $any($event.target).value"
+              />
+              <p>{{ placeholder }}</p>
 
   _Associa a propriedade 'placeholder' do TS a propriedade 'value' do HTML (property binding), conectando os dois (todos desse mesmo componente, porém o TS se comportará como 'pai' e o 'HTML' como filho). Nesse caso, o value irá recuperar o que o usuário digitar e será passado a propriedade placeholder que está atrelada ao event.target.value;
   <br>[value]="placeholder" => property binding - associa o TS ao HTML;
@@ -202,6 +202,44 @@ child.html<br>
 
   **ts**
 
-            export class EntryDataComponent {
-            placeholder: string = 'email';
-            }
+              export class EntryDataComponent {
+              placeholder: string = 'email';
+              }
+
+  <br>
+
+## LyfeCycle Hooks
+
+O conceito de _lifecycle_ dos componentes foi baseado no ciclo de vida dos humanos, onde ambos nascem, apresentam comportamentos específicos de acordo com eventos e tem então o seu fim.<br><br>
+
+### 8 Tipos de LifeCycle Hooks<br>
+
+**`ngOnInit()`** - interface importada e implementada no componente que será disparado quando o componente é iniciado, podendo conter, por exemplo, uma ação a ser executada assim que iniciado
+
+    export class TitleComponent implements OnInit {
+    nome: string = 'Name';
+    constructor() {}
+
+      ngOnInit(): void {
+        console.log('Olá, eu sou o nascimento do Componente');
+        this.nome = `Olá, ${this.nome}!`;
+      }
+    }
+
+<br>
+
+**`ngOnChanges()`** - disparada quando há alteração em algum valor/propriedade no componente<br><br>
+
+**`ngDoCheck()`** - contém subeventos:<br><br>
+&nbsp;&nbsp;&nbsp;`ngAfterContentInit()`<br>
+&nbsp;&nbsp;&nbsp;`ngAfterContentChecked()`<br>
+&nbsp;&nbsp;&nbsp;`ngAfterViewInit()`<br>
+&nbsp;&nbsp;&nbsp;`ngAfterViewChecked()`<br><br>
+
+**`ngOnDestroy()`** - utilizado quando o componente é destruido
+
+Ordem de execução (por componente e também sua ordem):
+
+1. Constructor - pois é a _class_ que gera o HTML
+2. OnChanges - Precisa primeiro _"ler"_ o que está sendo _"inputado"_ ...
+3. OnInit - ... para depois iniciar o componente

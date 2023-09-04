@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Component({
@@ -8,4 +8,7 @@ import { NgModel } from '@angular/forms';
 })
 export class EntryDataComponent {
   placeholder: string = 'email';
+  placepass: string = 'senha';
+  color: string = 'red';
+  fontSize: string = '20px';
 }

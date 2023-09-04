@@ -8,3 +8,8 @@
   (input)="placeholder = $any($event.target).value"
 />
 <p>{{ placeholder }}</p>
+
+<!-- [(ngModel)] já supre o [value] + (input) -->
+<input type="text" [(ngModel)]="placepass" />
+<!-- [style.color] adc a tag uma propriedade de estilo (color, backgroundColor, fontSize, etc) e atribui a varievel/propriedade "color" criada no TS -->
+<p [style.color]="color" [style.fontSize]="fontSize">{{ placepass }}</p>
