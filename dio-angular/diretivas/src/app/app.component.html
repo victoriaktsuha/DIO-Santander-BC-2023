@@ -1,0 +1,11 @@
+<!-- ngContent -->
+<app-comp-atributos>
+  <h2>Olá</h2>
+  <p>Eu vim de fora</p>
+</app-comp-atributos>
+<!-- *ngIf -->
+<!-- Caso o valor de 'isAliveCard' for 'false', o ng-template 'anotherBlock' será exibido -->
+<app-card *ngIf="isAliveCard; else anotherBlock"></app-card>
+<ng-template #anotherBlock>Olá, sou um bloco secreto</ng-template>
+
+<router-outlet></router-outlet>

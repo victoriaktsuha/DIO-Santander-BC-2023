@@ -1,0 +1,39 @@
+<p>Comp-Atributos Componente</p>
+<!-- ngClass -->
+<h4>ngClass</h4>
+<p [ngClass]="estilo">comp-atributos works!</p>
+<button (click)="trocar()">Trocar</button>
+<hr />
+
+<!-- ngStyle -->
+<h4>ngStyle</h4>
+<h1 [ngStyle]="{ background: corFundo, color: corFonte }">Curso Angular</h1>
+<hr />
+
+<!-- ngModel - Two Way Databinding -->
+<h4>ngModel</h4>
+<h3>Lista de compras</h3>
+<p>Adicionar item a lista:</p>
+<input type="text" [(ngModel)]="item" />
+<p>{{ item }}</p>
+<button (click)="adicionarLista()">Adicionar</button>
+<!-- lista onde será adicionado os itens -->
+<ul>
+  <li *ngFor="let item of lista">{{ item }}</li>
+</ul>
+<hr />
+<!-- ngTemplate -->
+<ng-template [ngIf]="isEnable">
+  <a href="#">Finalizar compra</a>
+</ng-template>
+<hr />
+
+<!-- ngContent -->
+<ng-content select="p"></ng-content>
+<h4>
+  ngContent - permite o componente 'pai' passar um conteúdo para o componente
+  'filho' dinamicamente, passando ao 'select' o nome da tag que está entre o
+  selector do componente dentro de outro componente, permitindo também o
+  posicionamento diverso dos conteúdos, com é o caso de 'Olá' e 'Eu vim de fora'
+</h4>
+<ng-content select="h2"></ng-content>

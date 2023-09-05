@@ -230,16 +230,54 @@ O conceito de _lifecycle_ dos componentes foi baseado no ciclo de vida dos human
 
 **`ngOnChanges()`** - disparada quando há alteração em algum valor/propriedade no componente<br><br>
 
-**`ngDoCheck()`** - contém subeventos:<br><br>
-&nbsp;&nbsp;&nbsp;`ngAfterContentInit()`<br>
-&nbsp;&nbsp;&nbsp;`ngAfterContentChecked()`<br>
-&nbsp;&nbsp;&nbsp;`ngAfterViewInit()`<br>
-&nbsp;&nbsp;&nbsp;`ngAfterViewChecked()`<br><br>
+**`ngDoCheck()`** - executado quando uma propriedade do componente é verificada; contém subeventos:<br><br>
+&nbsp;&nbsp;&nbsp;`ngAfterContentInit()` - executa quando Angular realiza qualquer projeção de conteúdo em seus componentes<br>
+&nbsp;&nbsp;&nbsp;`ngAfterContentChecked()` - executa sempre que um conteúdo do componente é verificado pelo mecanismo de detecção de alteração do Angular<br>
+&nbsp;&nbsp;&nbsp;`ngAfterViewInit()` - executa depois que o componente é totalmente inicializado<br>
+&nbsp;&nbsp;&nbsp;`ngAfterViewChecked()` - executa quando a visualização do componente é verificada pelo algoritmo de detecção de alterações do Angular<br><br>
 
-**`ngOnDestroy()`** - utilizado quando o componente é destruido
+**`ngOnDestroy()`** - utilizado quando o componente é destruido; É uma boa pratica utiliza-lo em conteúdos/componentes que não serão mais utilizados para evitar _memory leak_
 
 Ordem de execução (por componente e também sua ordem):
 
-1. Constructor - pois é a _class_ que gera o HTML
-2. OnChanges - Precisa primeiro _"ler"_ o que está sendo _"inputado"_ ...
-3. OnInit - ... para depois iniciar o componente
+1. `Constructor` - pois é a _class_ que gera o HTML
+2. `OnChanges` - Precisa primeiro _"ler"_ o que está sendo _"inputado"_ (caso houver)...
+3. `OnInit` - ... para depois iniciar o componente
+4. `DoCheck` - verifica se houve alguma alteração antes de iniciar o conteúdo
+5. `AfterContentInit` - executado quando o conteúdo é iniciado
+6. `AfterContentChecked` - evento após inicialização do conteúdo
+7. `AfterViewInit` - executa quando a visualização do conteúdo é iniciada
+8. `AfterViewChecked` - evento após inicialização da visualização do conteúdo
+
+## Diretivas
+
+Diretivas são a maneira como o Angular manipula e altera o DOM dinamicamente
+
+### Diretivas de atributo
+
+Alteram a aparência ou comportamento de um elemento, componente ou outra diretiva
+
+- `NgClass` - Adiciona ou remove conjuntos de classes CSS
+- `NgStyle` - Adiciona ou remove um conjunto de estilos ao HTML
+- `NgModel` - Adiciona vinculação de dados bidirecional a um elemento de um formulário
+
+### Diretivas estruturais
+
+Moldam ou remodelam a estrutura DOM, adicionando ou removendo elementos da tela
+
+- `NgIf` - Condicional que verifica se o modelo deve ser visualizado ou não; Pode ser utilizado com `ng-template`, onde um template é criado e só será exibido em certa condição, como um 'else'
+- `NgFor` - repete um elemento para cada item em uma lista
+- `NgSwitch` - Utilizado para alternar entre comportamentos alternativos
+  <br><br>
+
+## Módulos
+
+Contém componentes, diretivas, pipes e services. Conforme a expansão da aplicação, o ideal a criar outros módulos para agrupar componentes e inserir esses módulos no `app.module`, o módulo-core.
+
+Um módulo pode:
+
+- **Importar** e **Exportar** outros módulos;
+- **Declarar** componentes, diretivas, pipes
+- **Prover** services, API, DB..
+
+Sua estrutura necessita importar a interface `NgModule` do `@angular/core` e utilizar o decorator `@NgModule({})`, indicando as `declarations`, `ìmports`, `exports`, `providers` e o componente principal desse módulo em `bootstrap`, sendo exportado como`class`

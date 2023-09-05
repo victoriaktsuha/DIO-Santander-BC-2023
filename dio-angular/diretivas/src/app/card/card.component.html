@@ -1,0 +1,40 @@
+<p>Card Componente</p>
+<h4>ngFor</h4>
+<!-- *ngFor = Renderização de array -->
+<ul>
+  <li *ngFor="let p of produtos; let i = index" (click)="removerItem(i)">
+    {{ i }} - {{ p }}
+  </li>
+  <!-- adiciona/remove elementos do array -->
+  <button (click)="adicionar()">Adicionar</button>
+  <button (click)="remover()">Remover</button>
+</ul>
+<hr />
+<!-- ngSwitch (switch case) -->
+<h4>ngSwitch</h4>
+<div [ngSwitch]="menuType">
+  <div *ngSwitchDefault="'user'">
+    <p><b>Menu Usuário</b></p>
+    <ul>
+      <li>Editar perfil</li>
+      <li>Adicionar cartão</li>
+    </ul>
+  </div>
+  <div *ngSwitchCase="'admin'">
+    <p><b>Menu Admin</b></p>
+    <ul>
+      <li>Editar perfil</li>
+      <li>Adicionar cartão</li>
+      <li>Gerenciar usuários</li>
+    </ul>
+  </div>
+  <div *ngSwitchCase="'superuser'">
+    <p><b>Menu Super User</b></p>
+    <ul>
+      <li>Editar perfil</li>
+      <li>Adicionar cartão</li>
+      <li>Gerenciar usuários</li>
+      <li>Gerenciar admins</li>
+    </ul>
+  </div>
+</div>
