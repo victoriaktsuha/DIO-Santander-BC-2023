@@ -281,3 +281,22 @@ Um módulo pode:
 - **Prover** services, API, DB..
 
 Sua estrutura necessita importar a interface `NgModule` do `@angular/core` e utilizar o decorator `@NgModule({})`, indicando as `declarations`, `ìmports`, `exports`, `providers` e o componente principal desse módulo em `bootstrap`, sendo exportado como`class`
+
+<hr>
+
+`@Input()` permite que as propriedades abaixo dele sejam disponibilizadas no componente que utiliza o selector do componente onde o `@Input()` for criado:
+
+- **component-1.component.ts**:
+
+        export class Componente1 {
+
+              @Input()
+              title:string = '';
+
+              constructor(){}
+
+        }
+
+- **component-2.component.html**:
+
+        <componente-1 title="Título Dinâmico"></componente-1>
