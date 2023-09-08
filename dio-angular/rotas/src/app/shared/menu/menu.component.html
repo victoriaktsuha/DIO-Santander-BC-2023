@@ -1,0 +1,19 @@
+<div>
+  <ul>
+    <!-- [routerLink]ao invés do href para evitar refresh -->
+    <li>
+      <a
+        [routerLink]="['/']"
+        [routerLinkActive]="['activated']"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Home</a
+      >
+      <!-- [routerLinkActiveOptions]="{ exact: true }" para aplicar a classe apenas quando a rota for exatamente aquela -->
+    </li>
+    <li>
+      <a [routerLink]="['/portifolio']" [routerLinkActive]="['activated']"
+        >Portifólio</a
+      >
+    </li>
+  </ul>
+</div>

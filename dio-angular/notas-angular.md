@@ -300,3 +300,103 @@ Sua estrutura necessita importar a interface `NgModule` do `@angular/core` e uti
 - **component-2.component.html**:
 
         <componente-1 title="Título Dinâmico"></componente-1>
+
+## Rotas
+
+Navegação sem _'refresh'_ entre componentes definida no arquivo `app-routing.module.ts`:
+
+    import { NgModule } from '@angular/core';
+    import { RouterModule, Routes } from '@angular/router';
+    import { TitleComponent } from './pages/index/title/title.component';
+    import { CardComponent } from './pages/portifolio/card/card.component';
+
+    const routes: Routes = [
+      {
+        path: '',
+        component: TitleComponent,
+        pathMatch: 'full',
+        // pathMatch: 'full' = url exata / 'prefix' = url deve conter partes desse path para exibir o componente
+      },
+      // portifolio - parent
+      // portifolio/{1} - children
+      // portifolio/{1/abc} - children
+      {
+        path: 'portifolio',
+        component: CardComponent,
+        children: [
+          {
+            // tudo que for passado depois de 'portifolio/' estará dentro da variável ':id"
+            path: ':id',
+            component: CardComponent,
+          },
+          {
+            path: ':id/:token',
+            component: CardComponent,
+          },
+        ],
+      },
+      // redirecionamento de paths não existentes
+      {
+        path: '**',
+        redirectTo: '',
+      },
+    ];
+
+    @NgModule({
+      imports: [RouterModule.forRoot(routes)],
+      exports: [RouterModule],
+    })
+    export class AppRoutingModule {}
+
+E atrelada no HTML atráves do `[routerLink]`, substituindo o _href_ para evitar refresh da página
+
+    <div>
+      <ul>
+        <li>
+          <a
+            [routerLink]="['/']"
+            [routerLinkActive]="['activated']"
+            [routerLinkActiveOptions]="{ exact: true }"
+            >Home</a>
+        </li>
+        <li>
+          <a [routerLink]="['/portifolio']" [routerLinkActive]="['activated']"
+            >Portifólio</a>
+        </li>
+      </ul>
+    </div>
+
+`[routerLinkActive]` atribui uma class de estilo CSS para quando o link estiver ativo;
+`[routerLinkActiveOptions]` aplica o estilo CSS apenas quando a rota for exatamente igual a definida em `[routerLink]`
+
+## Services
+
+### Os 3 pilares de um service
+
+- São arquivos de class TS apenas para regras de negócio, como comunicação com APIs. `-components.ts` deve cuidar apenas da parte visual.
+- Ele pode servir mais de um componente, não estando atrelado apenas em um componente.
+- Não há um certo ou errado no uso de services, entre criar um service para todos ou cirar um service por componente. Mas de certa forma, como boa prática, um service deve ser _'especialista'_ no que executa, e não um amontoado de execuções aleatórias; Como um para cadastros, ou para API, etc..
+
+O endereço da API pode ser incluído no `environment.ts`:
+
+    export const environment = {
+      production: false,
+      pokeApi: 'https://pokeapi.co/api/v2/pokemon/',
+    };
+
+e o `service.ts` consumirá esse arquivo para prover esses dados a outros componentes.
+Para criar esse componente de service: `ng g s nameService`
+
+Conteúdo _Injectable_ ou Injeção de Dependências - poderá ser utilizado passando-o como dependência de outro objeto, de outra class. Exemplo: poderá ser passado como dependência/"injetado" ao _constructor_ de um componente para ser consumido por ele:
+
+      constructor(private service: NameService) {}
+
+Lembrando que para consumir a API, ele precisa se comunicar com o `environment.ts`, importando o _environment_ e atribuindo a URL a propriedade dentro do _constructor_ :
+
+    import { environment } from 'src/environments/environment';
+    export class PokemonService {
+      private baseURL: string = '';
+      constructor() {
+        this.baseURL = environment.pokeApi;
+      }
+    }
