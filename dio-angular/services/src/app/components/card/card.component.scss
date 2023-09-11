@@ -23,6 +23,13 @@
     margin: 0 auto;
     height: 65%;
     border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 250px;
+    }
   }
   &__stats {
     margin: auto;
